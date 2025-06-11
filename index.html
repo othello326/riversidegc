@@ -62,9 +62,22 @@
                 <!-- Centered Logo -->
                 <div class="flex-shrink-0">
                     <a href="#" class="flex items-center space-x-4">
-                        <i data-lucide="bow" class="h-7 w-7" style="color: var(--accent-bronze);"></i>
+                        <!-- Big, squat, horizontal bullet SVG -->
+                        <svg class="h-10 w-10" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--accent-bronze);">
+                          <!-- Bullet body (wider, shorter) -->
+                          <rect x="6" y="7" width="12" height="6" rx="3" fill="currentColor" />
+                          <!-- Bullet nose (rounded) -->
+                          <ellipse cx="19" cy="10" rx="5" ry="3" fill="currentColor" />
+                          <!-- Bullet base (slight curve for realism) -->
+                          <ellipse cx="6" cy="10" rx="1.5" ry="3" fill="currentColor" />
+                          <!-- Motion lines -->
+                          <rect x="1" y="9" width="3" height="1" fill="currentColor" opacity="0.6"/>
+                          <rect x="1" y="11" width="2" height="1" fill="currentColor" opacity="0.4"/>
+                        </svg>
                         <h1 class="text-4xl font-display text-gray-100 whitespace-nowrap">Riverside Gun Club</h1>
-                        <i data-lucide="target" class="h-7 w-7" style="color: var(--accent-bronze);"></i>
+                        <span class="relative" style="display:inline-flex;">
+                            <i data-lucide="target" class="h-7 w-7" style="color: var(--accent-bronze); position: relative; top: -3px;"></i>
+                        </span>
                     </a>
                 </div>
                 
@@ -180,7 +193,7 @@
     <footer id="contact" class="py-16 bg-charcoal border-t" style="border-color: var(--border-color);">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center" style="color: var(--text-secondary);">
              <p class="text-sm">&copy; 2025 Riverside Gun Club. All Rights Reserved.</p>
-             <p class="text-xs mt-1">123 Range Rd, Bolton, MA | (978) 555-1234</p>
+             <p class="text-xs mt-1">16 Wilkins St, Hudson, MA 01749 | (978) 562-2404</p>
         </div>
     </footer>
 
