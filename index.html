@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riverside Gun Club - Premier Shooting Sports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom styles for the new Earth-Toned Theme */
+        :root {
+            --bg-primary: #1e251f; /* Dark, desaturated green */
+            --bg-secondary: #2a342c; /* Slightly lighter green for cards */
+            --accent-copper: #b97746; /* Warm, rich copper */
+            --accent-copper-hover: #a3683a;
+            --text-primary: #e8e6e3; /* Off-white, warm text */
+            --text-secondary: #a8a29e; /* Tailwind stone-400 for secondary text */
+            --border-color: #414a42;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(30, 37, 31, 0.85), rgba(30, 37, 31, 0.85)), url('https://placehold.co/1920x1080/2d3748/cccccc?text=Shooting+Range');
+            background-size: cover;
+            background-position: center;
+        }
+        .nav-link {
+            @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200;
+            color: var(--text-secondary);
+        }
+        .nav-link:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .nav-link-mobile {
+             @apply block px-3 py-2 text-base font-medium rounded-md;
+             color: var(--text-secondary);
+        }
+        .nav-link-mobile:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .dropdown-menu {
+            @apply absolute mt-2 w-48 border rounded-md shadow-lg py-1;
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+        .dropdown-link {
+            @apply block px-4 py-2 text-sm;
+            color: var(--text-secondary);
+        }
+        .dropdown-link:hover {
+            background-color: var(--accent-copper);
+            color: white;
+        }
+        .section-title {
+            @apply text-4xl font-bold text-center tracking-tight;
+            color: var(--text-primary);
+        }
+        .card {
+            @apply border rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105;
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+        .footer-link {
+            color: var(--text-secondary);
+        }
+        .footer-link:hover {
+             color: var(--accent-copper);
+        }
+        .btn-primary {
+            @apply inline-block text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-200 ease-in-out shadow-lg transform hover:scale-105;
+            background-color: var(--accent-copper);
+        }
+        .btn-primary:hover {
+             background-color: var(--accent-copper-hover);
+        }
+        .accent-text {
+            color: var(--accent-copper);
+        }
+    </style>
+</head>
+<body class="text-gray-300">
+
+    <!-- Header & Navigation -->
+    <header style="background-color: rgba(30, 37, 31, 0.8);" class="backdrop-blur-sm sticky top-0 z-50 border-b" style="border-color: var(--border-color);">
+        <nav x-data="{ open: false }" class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo / Site Name -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center space-x-2">
+                        <i data-lucide="target" class="h-8 w-8 accent-text"></i>
+                        <span class="text-2xl font-bold">Riverside GC</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex lg:items-center lg:space-x-1">
+                    <a href="#archery" class="nav-link">Archery</a>
+                    <!-- Dropdown: Rifle & Pistol -->
+                    <div x-data="{ dropdownOpen: false }" @mouseenter="dropdownOpen = true" @mouseleave="dropdownOpen = false" class="relative">
+                        <a href="#ranges" class="nav-link">
+                            <span>Rifle & Pistol</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                        </a>
+                        <div x-show="dropdownOpen" x-transition class="dropdown-menu" style="display:none;">
+                            <a href="#indoor-range" class="dropdown-link">Indoor Range</a>
+                            <a href="#outdoor-range" class="dropdown-link">Outdoor Range</a>
+                            <a href="#range-schedule" class="dropdown-link">Range Schedule</a>
+                        </div>
+                    </div>
+                    <a href="#skeet" class="nav-link">Skeet & Trap</a>
+                    <a href="#fish" class="nav-link">Fish & Game</a>
+                    <a href="#clubhouse" class="nav-link">Clubhouse</a>
+                    <a href="#calendar" class="nav-link">Club Calendar</a>
+                    <a href="#rules" class="nav-link">Range Rules</a>
+                    <!-- Dropdown: Membership -->
+                    <div x-data="{ dropdownOpen: false }" @mouseenter="dropdownOpen = true" @mouseleave="dropdownOpen = false" class="relative">
+                        <a href="#membership" class="nav-link">
+                            <span>Membership</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                        </a>
+                        <div x-show="dropdownOpen" x-transition class="dropdown-menu" style="display:none;">
+                            <a href="#apply" class="dropdown-link">Apply for Membership</a>
+                            <a href="#renew" class="dropdown-link">Renew Membership</a>
+                            <a href="#rates" class="dropdown-link">Rates & Fees</a>
+                        </div>
+                    </div>
+                    <a href="#directions" class="nav-link">Directions</a>
+                    <a href="#contacts" class="nav-link">Contacts</a>
+                    <a href="#videos" class="nav-link">Videos</a>
+                    <a href="#training" class="nav-link">Training</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button @click="open = !open" type="button" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none ring-2 ring-inset" style="color: var(--text-secondary); border-color: var(--accent-copper);">
+                        <span class="sr-only">Open main menu</span>
+                        <i x-show="!open" data-lucide="menu" class="block h-6 w-6"></i>
+                        <i x-show="open" data-lucide="x" class="block h-6 w-6" style="display: none;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div x-show="open" @click.away="open = false" class="lg:hidden" id="mobile-menu" style="display: none;">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#archery" class="nav-link-mobile">Archery</a>
+                    <a href="#ranges" class="nav-link-mobile">Rifle & Pistol</a>
+                    <a href="#skeet" class="nav-link-mobile">Skeet & Trap</a>
+                    <a href="#fish" class="nav-link-mobile">Fish & Game</a>
+                    <a href="#clubhouse" class="nav-link-mobile">Clubhouse</a>
+                    <a href="#calendar" class="nav-link-mobile">Club Calendar</a>
+                    <a href="#rules" class="nav-link-mobile">Range Rules</a>
+                    <a href="#membership" class="nav-link-mobile">Membership</a>
+                    <a href="#directions" class="nav-link-mobile">Directions</a>
+                    <a href="#contacts" class="nav-link-mobile">Contacts</a>
+                    <a href="#videos" class="nav-link-mobile">Videos</a>
+                    <a href="#training" class="nav-link-mobile">Training</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section relative text-center py-24 sm:py-32 lg:py-48">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
+                    Precision, Safety, Community
+                </h1>
+                <p class="max-w-3xl mx-auto text-lg sm:text-xl mb-8" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.7); color: var(--text-primary);">
+                    Welcome to Riverside Gun Club, the premier destination for shooting sports enthusiasts in the region.
+                </p>
+                <a href="#membership" class="btn-primary">Become a Member</a>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20" style="background-color: var(--bg-primary);">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title mb-12">About Riverside Gun Club</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://placehold.co/600x400/2a342c/cccccc?text=Club+Facilities" alt="Club Facilities" class="rounded-lg shadow-xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/2a342c/cccccc?text=Image+Not+Found';">
+                    </div>
+                    <div class="text-lg space-y-4" style="color: var(--text-secondary);">
+                        <p>Founded in 1952, Riverside Gun Club has been a cornerstone of the local sporting community for over 70 years. Our mission is to provide a safe, welcoming, and well-maintained environment for firearm enthusiasts of all skill levels.</p>
+                        <p>We are dedicated to promoting responsible firearm ownership, safety, and marksmanship through education, regular practice, and friendly competition. Our facilities are state-of-the-art, and our community is built on a foundation of respect and camaraderie.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section id="events" class="py-20" style="background-color: #242b25;">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title mb-12">Upcoming Events</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Event Card 1 -->
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/b97746/ffffff?text=Competition" alt="Competition" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/b97746/ffffff?text=Image+Not+Found';">
+                        <div class="p-6">
+                            <p class="text-sm font-semibold accent-text">June 22, 2025</p>
+                            <h3 class="text-xl font-bold mt-2" style="color: var(--text-primary);">Summer Steel Challenge</h3>
+                            <p class="mt-2" style="color: var(--text-secondary);">Test your speed and accuracy in our annual Summer Steel Challenge. Open to all members.</p>
+                        </div>
+                    </div>
+                    <!-- Event Card 2 -->
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/b97746/ffffff?text=Training" alt="Training" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/b97746/ffffff?text=Image+Not+Found';">
+                        <div class="p-6">
+                            <p class="text-sm font-semibold accent-text">July 12, 2025</p>
+                            <h3 class="text-xl font-bold mt-2" style="color: var(--text-primary);">Defensive Pistol Course</h3>
+                            <p class="mt-2" style="color: var(--text-secondary);">A comprehensive one-day course covering the fundamentals of defensive pistol use.</p>
+                        </div>
+                    </div>
+                    <!-- Event Card 3 -->
+                    <div class="card">
+                         <img src="https://placehold.co/600x400/b97746/ffffff?text=Community+Day" alt="Community Day" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/b97746/ffffff?text=Image+Not+Found';">
+                        <div class="p-6">
+                            <p class="text-sm font-semibold accent-text">August 5, 2025</p>
+                            <h3 class="text-xl font-bold mt-2" style="color: var(--text-primary);">Member BBQ & Family Day</h3>
+                            <p class="mt-2" style="color: var(--text-secondary);">Join us for a day of fun, food, and camaraderie. Bring the family for a great day at the club.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="border-t" style="background-color: var(--bg-primary); border-color: var(--border-color);">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- About -->
+                <div>
+                    <h3 class="text-lg font-semibold" style="color: var(--text-primary);">Riverside Gun Club</h3>
+                    <p class="mt-2" style="color: var(--text-secondary);">Promoting marksmanship, safety, and community since 1952.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold" style="color: var(--text-primary);">Quick Links</h3>
+                    <ul class="mt-2 space-y-2">
+                        <li><a href="#membership" class="footer-link">Membership Info</a></li>
+                        <li><a href="#events" class="footer-link">Event Calendar</a></li>
+                        <li><a href="#rules" class="footer-link">Club Rules</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold" style="color: var(--text-primary);">Get In Touch</h3>
+                    <ul class="mt-2 space-y-2" style="color: var(--text-secondary);">
+                        <li class="flex items-center justify-center md:justify-start space-x-2"><i data-lucide="map-pin" class="h-5 w-5 accent-text"></i><span>123 Range Rd, Bolton, MA</span></li>
+                        <li class="flex items-center justify-center md:justify-start space-x-2"><i data-lucide="phone" class="h-5 w-5 accent-text"></i><span>(978) 555-1234</span></li>
+                        <li class="flex items-center justify-center md:justify-start space-x-2"><i data-lucide="mail" class="h-5 w-5 accent-text"></i><span>contact@riversidegc.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t pt-8 text-center" style="border-color: var(--border-color); color: var(--text-secondary);">
+                <p>&copy; 2025 Riverside Gun Club. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
