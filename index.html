@@ -51,6 +51,36 @@
             color: white;
         }
         [x-cloak] { display: none !important; }
+
+        /* Mobile header adjustments: restore compact height */
+        @media (max-width: 767px) {
+            .h-24 {
+                height: 3.5rem !important;
+            }
+            header .container > .relative.flex.items-center.h-24,
+            header .container > .flex.items-center.h-24 {
+                height: 3.5rem !important;
+                min-height: 3.5rem !important;
+            }
+            .header-title {
+                font-size: 1.25rem !important;
+                line-height: 2rem !important;
+            }
+            .header-svg {
+                height: 2rem !important;
+                width: 2rem !important;
+                min-width: 2rem !important;
+            }
+            .header-target {
+                height: 1.5rem !important;
+                width: 1.5rem !important;
+            }
+            .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+                --tw-space-x-reverse: 0;
+                margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+                margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+            }
+        }
     </style>
 </head>
 <body x-data="{ menuOpen: false }" @keydown.escape.window="menuOpen = false">
@@ -58,28 +88,26 @@
     <!-- Header -->
     <header class="fixed top-0 z-50 w-full border-b" style="background-color: var(--bg-charcoal); border-color: var(--border-color);">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-24">
-                <!-- Left Spacer -->
-                <div class="flex-1"></div>
-                <!-- Centered Logo -->
-                <div class="flex-shrink-0">
-                    <a href="#" class="flex items-center space-x-4">
-                        <svg class="h-10 w-10" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--accent-bronze);">
+            <div class="relative flex items-center h-24">
+                <!-- Desktop Centered Logo and Title -->
+                <div class="absolute inset-0 flex justify-center items-center pointer-events-none h-24">
+                    <div class="flex items-center space-x-4 pointer-events-auto">
+                        <svg class="h-10 w-10 header-svg" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--accent-bronze); min-width:2.5rem;">
                             <rect x="6" y="7" width="12" height="6" rx="3" fill="currentColor" />
                             <ellipse cx="19" cy="10" rx="5" ry="3" fill="currentColor" />
                             <ellipse cx="6" cy="10" rx="1.5" ry="3" fill="currentColor" />
                             <rect x="1" y="9" width="3" height="1" fill="currentColor" opacity="0.6"/>
                             <rect x="1" y="11" width="2" height="1" fill="currentColor" opacity="0.4"/>
                         </svg>
-                        <h1 class="text-4xl font-display text-gray-100 whitespace-nowrap">Riverside Gun Club</h1>
-                        <span class="relative" style="display:inline-flex;">
-                            <i data-lucide="target" class="h-7 w-7" style="color: var(--accent-bronze); position: relative; top: -3px;"></i>
+                        <h1 class="header-title text-4xl font-display text-gray-100 whitespace-nowrap">Riverside Gun Club</h1>
+                        <span class="relative inline-flex">
+                            <i data-lucide="target" class="h-7 w-7 header-target" style="color: var(--accent-bronze); position: relative; top: -3px;"></i>
                         </span>
-                    </a>
+                    </div>
                 </div>
-                <!-- Right Side with Menu Button -->
-                <div class="flex-1 flex justify-end">
-                    <div x-data="{ open: false }" @click.away="open = false" class="relative hidden md:block">
+                <!-- Desktop Menu (Right) -->
+                <div class="hidden md:flex flex-1 justify-end relative z-10">
+                    <div x-data="{ open: false }" @click.away="open = false" class="relative">
                         <button @click="open = !open" class="flex items-center space-x-2 px-6 py-2 text-sm font-bold uppercase tracking-wider rounded-md border transition-colors"
                             :class="open ? 'bg-white text-black border-white' : 'border-gray-600 text-gray-300 hover:bg-gray-700'">
                             <span>Menu</span>
@@ -112,12 +140,12 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Mobile Menu Button -->
-                    <div class="md:hidden">
-                        <button @click="menuOpen = !menuOpen" class="p-2 -mr-2" aria-label="Open menu">
-                            <i data-lucide="menu" class="h-7 w-7 text-gray-300"></i>
-                        </button>
-                    </div>
+                </div>
+                <!-- Mobile Menu Button (Right) -->
+                <div class="flex md:hidden flex-shrink-0 items-center relative z-10 ml-auto">
+                    <button @click="menuOpen = !menuOpen" class="p-2" aria-label="Open menu">
+                        <i data-lucide="menu" class="h-7 w-7 text-gray-300"></i>
+                    </button>
                 </div>
             </div>
         </div>
