@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Teko:wght@600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    <!-- Ensure Alpine is loaded with defer -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         :root {
             --bg-charcoal: #2d2d2d;
@@ -21,33 +21,36 @@
             --accent-bronze: #c5a05b;
             --accent-bronze-hover: #d1b47b;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-off-white);
             color: var(--text-dark);
         }
-
         .font-display {
             font-family: 'Teko', sans-serif;
             letter-spacing: 0.05em;
         }
-        
         .prose-custom {
-             --tw-prose-body: var(--text-muted); 
-             --tw-prose-headings: var(--text-dark); 
-             --tw-prose-bullets: var(--text-muted);
+            --tw-prose-body: var(--text-muted); 
+            --tw-prose-headings: var(--text-dark); 
+            --tw-prose-bullets: var(--text-muted);
         }
-
         .mega-menu-link {
-            @apply block w-full text-left p-3 rounded-md font-semibold transition-colors duration-200;
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition-property: color, background-color;
+            transition-duration: 200ms;
             color: #a0a0a0;
         }
         .mega-menu-link:hover {
             background-color: rgba(0,0,0,0.2);
             color: white;
         }
-
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body x-data="{ menuOpen: false }" @keydown.escape.window="menuOpen = false">
@@ -58,21 +61,15 @@
             <div class="flex items-center justify-between h-24">
                 <!-- Left Spacer -->
                 <div class="flex-1"></div>
-                
                 <!-- Centered Logo -->
                 <div class="flex-shrink-0">
                     <a href="#" class="flex items-center space-x-4">
-                        <!-- Big, squat, horizontal bullet SVG -->
                         <svg class="h-10 w-10" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--accent-bronze);">
-                          <!-- Bullet body (wider, shorter) -->
-                          <rect x="6" y="7" width="12" height="6" rx="3" fill="currentColor" />
-                          <!-- Bullet nose (rounded) -->
-                          <ellipse cx="19" cy="10" rx="5" ry="3" fill="currentColor" />
-                          <!-- Bullet base (slight curve for realism) -->
-                          <ellipse cx="6" cy="10" rx="1.5" ry="3" fill="currentColor" />
-                          <!-- Motion lines -->
-                          <rect x="1" y="9" width="3" height="1" fill="currentColor" opacity="0.6"/>
-                          <rect x="1" y="11" width="2" height="1" fill="currentColor" opacity="0.4"/>
+                            <rect x="6" y="7" width="12" height="6" rx="3" fill="currentColor" />
+                            <ellipse cx="19" cy="10" rx="5" ry="3" fill="currentColor" />
+                            <ellipse cx="6" cy="10" rx="1.5" ry="3" fill="currentColor" />
+                            <rect x="1" y="9" width="3" height="1" fill="currentColor" opacity="0.6"/>
+                            <rect x="1" y="11" width="2" height="1" fill="currentColor" opacity="0.4"/>
                         </svg>
                         <h1 class="text-4xl font-display text-gray-100 whitespace-nowrap">Riverside Gun Club</h1>
                         <span class="relative" style="display:inline-flex;">
@@ -80,26 +77,25 @@
                         </span>
                     </a>
                 </div>
-                
                 <!-- Right Side with Menu Button -->
                 <div class="flex-1 flex justify-end">
-                     <div x-data="{ open: false }" @click.away="open = false" class="relative hidden md:block">
+                    <div x-data="{ open: false }" @click.away="open = false" class="relative hidden md:block">
                         <button @click="open = !open" class="flex items-center space-x-2 px-6 py-2 text-sm font-bold uppercase tracking-wider rounded-md border transition-colors"
                             :class="open ? 'bg-white text-black border-white' : 'border-gray-600 text-gray-300 hover:bg-gray-700'">
                             <span>Menu</span>
                             <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': open}"></i>
                         </button>
-
                         <!-- Mega Menu Dropdown Panel -->
-                        <div x-show="open" 
-                             x-transition:enter="transition ease-out duration-200"
-                             x-transition:enter-start="opacity-0 -translate-y-2"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-in duration-150"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 -translate-y-2"
-                             class="absolute top-full right-0 mt-3 w-screen max-w-sm lg:max-w-md rounded-lg shadow-2xl" 
-                             style="background-color: var(--bg-charcoal); border: 1px solid var(--border-color); display:none;">
+                        <div x-show="open"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 -translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 -translate-y-2"
+                            class="absolute top-full right-0 mt-3 w-screen max-w-sm lg:max-w-md rounded-lg shadow-2xl"
+                            style="background-color: var(--bg-charcoal); border: 1px solid var(--border-color);"
+                            x-cloak>
                             <ul class="grid grid-cols-2 gap-2 p-4">
                                 <li><a href="#archery" @click="open=false" class="mega-menu-link">Archery</a></li>
                                 <li><a href="#rifle-pistol" @click="open=false" class="mega-menu-link">Rifle & Pistol</a></li>
@@ -116,9 +112,9 @@
                             </ul>
                         </div>
                     </div>
-                     <!-- Mobile Menu Button -->
+                    <!-- Mobile Menu Button -->
                     <div class="md:hidden">
-                        <button @click="menuOpen = !menuOpen" class="p-2 -mr-2">
+                        <button @click="menuOpen = !menuOpen" class="p-2 -mr-2" aria-label="Open menu">
                             <i data-lucide="menu" class="h-7 w-7 text-gray-300"></i>
                         </button>
                     </div>
@@ -127,78 +123,91 @@
         </div>
     </header>
 
-    <!-- Mobile Off-canvas Menu -->
-    <div x-show="menuOpen" class="md:hidden" style="display:none;">
-        <div x-show="menuOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-             x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-             class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" @click="menuOpen = false"></div>
-
-        <div x-show="menuOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
-             x-transition:leave="ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
-             class="fixed inset-y-0 left-0 z-50 w-full max-w-sm" style="background-color: var(--bg-charcoal);">
-            <div class="p-5">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="font-display text-2xl text-white uppercase">Menu</h2>
-                    <button @click="menuOpen = false" class="p-2 -mr-2">
-                        <i data-lucide="x" class="h-7 w-7 text-gray-400"></i>
-                    </button>
-                </div>
-                <nav>
-                    <ul class="space-y-1">
-                        <li><a href="#archery" @click="menuOpen=false" class="mega-menu-link">Archery</a></li>
-                        <li><a href="#rifle-pistol" @click="menuOpen=false" class="mega-menu-link">Rifle & Pistol</a></li>
-                        <li><a href="#skeet-trap" @click="menuOpen=false" class="mega-menu-link">Skeet & Trap</a></li>
-                        <li><a href="#fish-game" @click="menuOpen=false" class="mega-menu-link">Fish & Game</a></li>
-                        <li><a href="#clubhouse" @click="menuOpen=false" class="mega-menu-link">Clubhouse</a></li>
-                        <li><a href="#calendar" @click="menuOpen=false" class="mega-menu-link">Calendar</a></li>
-                        <li><a href="#rules" @click="menuOpen=false" class="mega-menu-link">Range Rules</a></li>
-                        <li><a href="#membership" @click="menuOpen=false" class="mega-menu-link">Membership</a></li>
-                        <li><a href="#directions" @click="menuOpen=false" class="mega-menu-link">Directions</a></li>
-                        <li><a href="#contacts" @click="menuOpen=false" class="mega-menu-link">Contacts</a></li>
-                        <li><a href="#videos" @click="menuOpen=false" class="mega-menu-link">Videos</a></li>
-                        <li><a href="#training" @click="menuOpen=false" class="mega-menu-link">Training</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+    <!-- Mobile Off-canvas Menu Overlay -->
+    <div 
+        x-show="menuOpen"
+        x-cloak
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+        @click="menuOpen = false">
     </div>
 
+    <!-- Mobile Off-canvas Menu -->
+    <aside
+        x-show="menuOpen"
+        x-cloak
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="-translate-x-full"
+        x-transition:enter-end="translate-x-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="-translate-x-full"
+        class="fixed inset-y-0 left-0 z-50 w-full max-w-sm md:hidden"
+        style="background-color: var(--bg-charcoal);">
+        <div class="p-5 h-full flex flex-col">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-display text-2xl text-white uppercase">Menu</h2>
+                <button @click="menuOpen = false" class="p-2 -mr-2" aria-label="Close menu">
+                    <i data-lucide="x" class="h-7 w-7 text-gray-400"></i>
+                </button>
+            </div>
+            <nav class="flex-1 overflow-y-auto">
+                <ul class="space-y-1">
+                    <li><a href="#archery" @click="menuOpen=false" class="mega-menu-link">Archery</a></li>
+                    <li><a href="#rifle-pistol" @click="menuOpen=false" class="mega-menu-link">Rifle & Pistol</a></li>
+                    <li><a href="#skeet-trap" @click="menuOpen=false" class="mega-menu-link">Skeet & Trap</a></li>
+                    <li><a href="#fish-game" @click="menuOpen=false" class="mega-menu-link">Fish & Game</a></li>
+                    <li><a href="#clubhouse" @click="menuOpen=false" class="mega-menu-link">Clubhouse</a></li>
+                    <li><a href="#calendar" @click="menuOpen=false" class="mega-menu-link">Calendar</a></li>
+                    <li><a href="#rules" @click="menuOpen=false" class="mega-menu-link">Range Rules</a></li>
+                    <li><a href="#membership" @click="menuOpen=false" class="mega-menu-link">Membership</a></li>
+                    <li><a href="#directions" @click="menuOpen=false" class="mega-menu-link">Directions</a></li>
+                    <li><a href="#contacts" @click="menuOpen=false" class="mega-menu-link">Contacts</a></li>
+                    <li><a href="#videos" @click="menuOpen=false" class="mega-menu-link">Videos</a></li>
+                    <li><a href="#training" @click="menuOpen=false" class="mega-menu-link">Training</a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
 
     <main class="pt-24">
         <section id="about" class="pt-16 md:pt-16 pb-16 md:pb-24">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                 <div class="prose prose-custom prose-lg max-w-none">
                     <p>Serving Hudson, Massachusetts and the surrounding communities, Riverside Gun Club was established to advance the protection, propagation and restoration of forest, fish and game for the benefit of hunting and fishing; as well as promote safety and proficiency in archery and the use of sporting firearms.</p>
-                    
                     <p>Located in the densely wooded New England countryside and has facilities to support our members whether your interests are competitive shooting, breaking clays, fishing, plinking, sharpening your skills for hunting season or just socializing with other members.</p>
-                    
                     <h3 class="font-display !text-3xl !mt-12 uppercase" style="color: var(--accent-bronze);">The facilities include:</h3>
                     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-                      <li>25yd, 50yd & 100yd Outdoor Ranges</li>
-                      <li>3 Shotgun Fields (Skeet, Trap)</li>
-                      <li>100yd Outdoor Archery Butts</li>
-                      <li>14-target NFAA Archery Course</li>
-                      <li>Stocked Trout Pond</li>
-                      <li>Indoor Pistol Range</li>
-                      <li>Indoor Air Pistol & Archery Range</li>
-                      <li>Members Lounge & Function Hall</li>
+                        <li>25yd, 50yd & 100yd Outdoor Ranges</li>
+                        <li>3 Shotgun Fields (Skeet, Trap)</li>
+                        <li>100yd Outdoor Archery Butts</li>
+                        <li>14-target NFAA Archery Course</li>
+                        <li>Stocked Trout Pond</li>
+                        <li>Indoor Pistol Range</li>
+                        <li>Indoor Air Pistol & Archery Range</li>
+                        <li>Members Lounge & Function Hall</li>
                     </ul>
-
                     <p class="mt-8">In addition, club members enhance the community by supporting events for local scouting organizations, veteran's groups and other worthy civic organizations. Learn more about Riverside by attending an event open to the public, speaking to a member or viewing application details on the membership page.</p>
                 </div>
             </div>
         </section>
     </main>
-    
     <footer id="contact" class="py-16 bg-charcoal border-t" style="border-color: var(--border-color);">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center" style="color: var(--text-secondary);">
-             <p class="text-sm">&copy; 2025 Riverside Gun Club. All Rights Reserved.</p>
-             <p class="text-xs mt-1">16 Wilkins St, Hudson, MA 01749 | (978) 562-2404</p>
+            <p class="text-sm">&copy; 2025 Riverside Gun Club. All Rights Reserved.</p>
+            <p class="text-xs mt-1">16 Wilkins St, Hudson, MA 01749 | (978) 562-2404</p>
         </div>
     </footer>
-
-
     <script>
+        document.addEventListener('alpine:init', () => {
+            // this will confirm Alpine is running
+            document.body.setAttribute('data-alpine', 'true');
+        });
         lucide.createIcons();
     </script>
 </body>
