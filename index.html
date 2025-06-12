@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Teko:wght@600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Ensure Alpine is loaded with defer -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         :root {
@@ -80,6 +79,14 @@
                 margin-right: calc(0.5rem * var(--tw-space-x-reverse));
                 margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
             }
+            /* Align header content to left on mobile */
+            .header-center {
+                justify-content: flex-start !important;
+                left: 0 !important;
+                right: auto !important;
+                width: 100%;
+                padding-left: 0 !important;
+            }
         }
     </style>
 </head>
@@ -89,8 +96,8 @@
     <header class="fixed top-0 z-50 w-full border-b" style="background-color: var(--bg-charcoal); border-color: var(--border-color);">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="relative flex items-center h-24">
-                <!-- Desktop Centered Logo and Title -->
-                <div class="absolute inset-0 flex justify-center items-center pointer-events-none h-24">
+                <!-- Desktop Centered, Mobile Left-aligned Logo and Title -->
+                <div class="absolute inset-0 flex justify-center items-center pointer-events-none h-24 header-center">
                     <div class="flex items-center space-x-4 pointer-events-auto">
                         <svg class="h-10 w-10 header-svg" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--accent-bronze); min-width:2.5rem;">
                             <rect x="6" y="7" width="12" height="6" rx="3" fill="currentColor" />
